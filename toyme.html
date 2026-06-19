@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOYME · 陶一鸣</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600&family=Noto+Sans+SC:wght@300;400&family=Playfair+Display:ital,wght@0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #4A7C59;
+    --green-light: #7AAF8A;
+    --green-pale: #EBF3ED;
+    --green-mist: #F4F8F5;
+    --cream: #FAFAF8;
+    --gray-soft: #E8E8E4;
+    --gray-mid: #999990;
+    --text: #2C2C28;
+    --text-soft: #6B6B64;
+    --white: #FFFFFF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 48px;
+    background: rgba(250,250,248,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--gray-soft);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-style: italic;
+    color: var(--green);
+    letter-spacing: 0.04em;
+  }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    color: var(--text-soft);
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--green); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: flex-start;
+    padding: 0 10vw;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg-circle {
+    position: absolute; right: -100px; top: 50%; transform: translateY(-50%);
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #C8DFD0 0%, transparent 70%);
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    color: var(--green);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 9vw, 7rem);
+    font-weight: 400;
+    line-height: 1.05;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .hero-name span { color: var(--green); font-style: italic; }
+  .hero-motto {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(0.9rem, 1.8vw, 1.15rem);
+    font-style: italic;
+    color: var(--green);
+    letter-spacing: 0.06em;
+    margin-bottom: 10px;
+    opacity: 0.85;
+  }
+  .hero-tagline {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    color: var(--text-soft);
+    font-weight: 300;
+    margin-top: 20px;
+    min-height: 1.7em;
+  }
+  .cursor {
+    display: inline-block;
+    width: 2px; height: 1em;
+    background: var(--green);
+    animation: blink 1s infinite;
+    vertical-align: text-bottom;
+    margin-left: 2px;
+  }
+  @keyframes blink { 0%,50% { opacity:1 } 51%,100% { opacity:0 } }
+  .hero-tags {
+    display: flex; gap: 10px; flex-wrap: wrap;
+    margin-top: 36px;
+  }
+  .hero-tag {
+    padding: 5px 14px;
+    border: 1px solid var(--green-light);
+    border-radius: 20px;
+    font-size: 0.75rem;
+    color: var(--green);
+    letter-spacing: 0.05em;
+  }
+  .hero-scroll {
+    position: absolute; bottom: 40px; left: 10vw;
+    font-size: 0.7rem; letter-spacing: 0.18em;
+    color: var(--gray-mid); text-transform: uppercase;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-scroll::after {
+    content: ''; display: block;
+    width: 40px; height: 1px;
+    background: var(--gray-mid);
+    animation: scrollline 2s ease-in-out infinite;
+  }
+  @keyframes scrollline { 0%,100%{width:40px} 50%{width:60px} }
+
+  /* ── SECTIONS ── */
+  section { padding: 100px 10vw; }
+  section:nth-child(even) { background: var(--white); }
+
+  .section-label {
+    font-size: 0.68rem; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--green);
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 48px;
+    line-height: 1.2;
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px; align-items: start;
+  }
+  .about-intro {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1rem;
+    line-height: 2;
+    color: var(--text);
+    font-weight: 300;
+  }
+  .about-intro p + p { margin-top: 1.2em; }
+  .about-stats {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .stat-card {
+    padding: 24px;
+    background: var(--green-mist);
+    border-radius: 12px;
+    border-left: 3px solid var(--green);
+  }
+  .stat-label { font-size: 0.7rem; letter-spacing: 0.12em; color: var(--text-soft); margin-bottom: 6px; }
+  .stat-value { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--green); }
+
+  /* ── MOMENTS (朋友圈) ── */
+  .moments-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+  }
+  .moment-card {
+    background: var(--cream);
+    border: 1px solid var(--gray-soft);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .moment-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(74,124,89,0.1); }
+  .moment-img {
+    width: 100%; aspect-ratio: 4/3;
+    background: var(--green-pale);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2rem; color: var(--green-light);
+  }
+  .moment-body { padding: 20px; }
+  .moment-text {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 0.9rem; line-height: 1.8; color: var(--text);
+    margin-bottom: 12px;
+  }
+  .moment-meta { font-size: 0.72rem; color: var(--gray-mid); }
+  .moment-add {
+    border: 2px dashed var(--green-light);
+    background: transparent;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 10px; cursor: pointer;
+    min-height: 220px;
+    border-radius: 16px;
+    color: var(--green-light);
+    font-size: 0.8rem; letter-spacing: 0.1em;
+    transition: all 0.2s;
+  }
+  .moment-add:hover { background: var(--green-pale); color: var(--green); border-color: var(--green); }
+  .moment-add .plus { font-size: 2rem; font-weight: 200; }
+
+  /* ── MURMUR (碎碎念) ── */
+  .murmur-list { display: flex; flex-direction: column; gap: 16px; max-width: 680px; }
+  .murmur-item {
+    padding: 20px 24px;
+    background: var(--white);
+    border-radius: 12px;
+    border-left: 3px solid var(--green);
+    position: relative;
+    transition: transform 0.15s;
+  }
+  .murmur-item:hover { transform: translateX(4px); }
+  .murmur-text { font-family: 'Noto Serif SC', serif; font-size: 0.92rem; line-height: 1.85; color: var(--text); }
+  .murmur-time { font-size: 0.68rem; color: var(--gray-mid); margin-top: 8px; }
+  .murmur-input-area {
+    display: flex; gap: 12px; margin-top: 20px; max-width: 680px;
+  }
+  .murmur-input {
+    flex: 1;
+    border: 1px solid var(--gray-soft);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 0.88rem;
+    background: var(--white);
+    color: var(--text);
+    resize: none; outline: none;
+    transition: border-color 0.2s;
+    line-height: 1.7;
+  }
+  .murmur-input:focus { border-color: var(--green); }
+  .btn-post {
+    padding: 12px 24px;
+    background: var(--green);
+    color: white;
+    border: none; border-radius: 10px;
+    font-size: 0.8rem; letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: background 0.2s;
+    align-self: flex-end;
+  }
+  .btn-post:hover { background: var(--green-light); }
+
+  /* ── MUSIC ── */
+  .music-grid { display: flex; flex-direction: column; gap: 12px; max-width: 680px; }
+  .music-track {
+    display: flex; align-items: center; gap: 18px;
+    padding: 14px 18px;
+    background: var(--white);
+    border-radius: 12px;
+    border: 1px solid var(--gray-soft);
+    transition: all 0.2s; cursor: pointer;
+  }
+  .music-track:hover { background: var(--green-mist); border-color: var(--green-light); }
+  .music-track.playing { background: var(--green-pale); border-color: var(--green); }
+  .track-num { font-size: 0.75rem; color: var(--gray-mid); width: 20px; text-align: center; }
+  .track-play { width: 32px; height: 32px; border-radius: 50%; background: var(--green); display: flex; align-items:center; justify-content:center; color:white; font-size:0.7rem; flex-shrink:0; }
+  .track-info { flex: 1; }
+  .track-name { font-size: 0.88rem; color: var(--text); }
+  .track-artist { font-size: 0.73rem; color: var(--text-soft); margin-top: 2px; }
+  .track-dur { font-size: 0.72rem; color: var(--gray-mid); }
+
+  /* ── GALLERY ── */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  .gallery-item {
+    aspect-ratio: 1;
+    background: var(--green-pale);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; color: var(--green-light);
+    cursor: pointer; overflow: hidden;
+    transition: transform 0.2s;
+  }
+  .gallery-item:hover { transform: scale(1.03); }
+  .gallery-item:nth-child(3) { grid-column: span 2; aspect-ratio: 2/1; }
+  .gallery-item:nth-child(6) { grid-row: span 2; aspect-ratio: auto; }
+
+  /* ── SHARES ── */
+  .shares-list { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .share-card {
+    padding: 28px;
+    background: var(--white);
+    border-radius: 14px;
+    border: 1px solid var(--gray-soft);
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .share-card:hover { border-color: var(--green); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(74,124,89,0.08); }
+  .share-tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: var(--green-pale);
+    color: var(--green);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    margin-bottom: 14px;
+  }
+  .share-title { font-family: 'Noto Serif SC', serif; font-size: 1rem; color: var(--text); margin-bottom: 8px; line-height: 1.5; }
+  .share-desc { font-size: 0.82rem; color: var(--text-soft); line-height: 1.7; }
+
+  /* ── GAME ── */
+  #game { text-align: center; }
+  .game-area {
+    max-width: 480px; margin: 0 auto;
+    background: var(--white);
+    border-radius: 20px;
+    padding: 40px;
+    border: 1px solid var(--gray-soft);
+  }
+  .game-title-small { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--green); margin-bottom: 8px; }
+  .game-desc { font-size: 0.82rem; color: var(--text-soft); margin-bottom: 30px; }
+  .game-board {
+    display: grid; grid-template-columns: repeat(3,1fr);
+    gap: 10px; margin: 20px auto; max-width: 300px;
+  }
+  .cell {
+    aspect-ratio: 1;
+    background: var(--green-mist);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem; cursor: pointer;
+    transition: background 0.15s;
+    border: 2px solid transparent;
+  }
+  .cell:hover:not(.filled) { background: var(--green-pale); border-color: var(--green-light); }
+  .cell.filled { cursor: default; }
+  .game-status {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 0.9rem; color: var(--text); margin: 16px 0;
+    min-height: 1.7em;
+  }
+  .btn-reset {
+    padding: 10px 28px;
+    background: transparent;
+    border: 1px solid var(--green);
+    border-radius: 8px;
+    color: var(--green);
+    font-size: 0.8rem; letter-spacing: 0.1em;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .btn-reset:hover { background: var(--green); color: white; }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 60px 10vw 40px;
+    background: var(--text);
+    color: var(--gray-mid);
+    text-align: center;
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-style: italic;
+    color: var(--green-light); margin-bottom: 16px;
+  }
+  .footer-quote {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 0.88rem; color: #666; margin-bottom: 32px; line-height: 1.8;
+  }
+  .footer-copy { font-size: 0.72rem; letter-spacing: 0.1em; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { gap: 18px; }
+    section { padding: 70px 6vw; }
+    .about-grid { grid-template-columns: 1fr; }
+    .shares-list { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: repeat(2,1fr); }
+    .gallery-item:nth-child(3) { grid-column: span 1; aspect-ratio: 1; }
+    .gallery-item:nth-child(6) { grid-row: span 1; }
+  }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(4px);
+    z-index: 200; align-items: center; justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--cream);
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 480px; width: 90%;
+    position: relative;
+  }
+  .modal-close {
+    position: absolute; top: 16px; right: 20px;
+    background: none; border: none;
+    font-size: 1.2rem; cursor: pointer; color: var(--gray-mid);
+  }
+  .modal h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--green); margin-bottom: 20px; }
+  .modal textarea, .modal input[type=text] {
+    width: 100%;
+    border: 1px solid var(--gray-soft);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 0.88rem;
+    background: white;
+    color: var(--text);
+    margin-bottom: 14px;
+    outline: none;
+    resize: vertical;
+    transition: border-color 0.2s;
+  }
+  .modal textarea:focus, .modal input:focus { border-color: var(--green); }
+  .modal .btn-post { width: 100%; padding: 14px; text-align: center; border-radius: 10px; }
+  .img-upload-area {
+    width: 100%; min-height: 110px;
+    border: 2px dashed var(--gray-soft);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; margin-bottom: 14px;
+    transition: border-color 0.2s, background 0.2s;
+    overflow: hidden; position: relative;
+    background: var(--green-mist);
+  }
+  .img-upload-area:hover { border-color: var(--green); background: var(--green-pale); }
+  #imgPreviewWrap {
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    pointer-events: none;
+  }
+  .upload-icon { font-size: 1.8rem; }
+  .upload-hint { font-size: 0.75rem; color: var(--text-soft); letter-spacing: 0.06em; }
+  #imgPreviewWrap img {
+    width: 100%; max-height: 200px; object-fit: cover;
+    border-radius: 10px; pointer-events: none;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">TOYME</div>
+  <ul class="nav-links">
+    <li><a href="#about">关于我</a></li>
+    <li><a href="#moments">朋友圈</a></li>
+    <li><a href="#murmur">碎碎念</a></li>
+    <li><a href="#music">歌单</a></li>
+    <li><a href="#gallery">相册</a></li>
+    <li><a href="#shares">分享</a></li>
+    <li><a href="#game">小游戏</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-circle"></div>
+  <div class="hero-eyebrow">欢迎来到我的小世界</div>
+  <div class="hero-motto">Ich muß in die Freiheit.</div>
+  <div class="hero-name">陶一鸣<span>.</span></div>
+  <div class="hero-tagline" id="tagline"><span class="cursor"></span></div>
+  <div class="hero-tags">
+    <span class="hero-tag">INFP</span>
+    <span class="hero-tag">白羊座 ♈</span>
+    <span class="hero-tag">幼师 / 大三</span>
+    <span class="hero-tag">☕ 咖啡</span>
+    <span class="hero-tag">🍶 微醺</span>
+    <span class="hero-tag">📖 文学</span>
+    <span class="hero-tag">🌿 喜欢绿色</span>
+  </div>
+  <div class="hero-scroll">向下滚动</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">About</div>
+  <div class="section-title">关于我</div>
+  <div class="about-grid">
+    <div class="about-intro">
+      <p>我叫陶一鸣，也叫 TOYME。</p>
+      <p>白羊座，INFP，这两件事放在一起听起来很矛盾，但我觉得这才是我——外表有点燃，内心很安静，思维天马行空，感情却很细腻。</p>
+      <p>是个男生，但心理偏女性，我把自己定义为男拉拉。这没什么好解释的，只是我的一部分。</p>
+      <p>白天我在幼儿园陪小朋友们疯跑，晚上我一个人喝咖啡、翻书、听说不出名字的歌。我喜欢小众的东西——不是为了标新立异，只是它们恰好更像我。</p>
+      <p>哲学、文学、音乐。还有一杯刚好的酒。</p>
+    </div>
+    <div class="about-stats">
+      <div class="stat-card">
+        <div class="stat-label">MBTI</div>
+        <div class="stat-value">INFP</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">星座</div>
+        <div class="stat-value">白羊座 ♈</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">职业</div>
+        <div class="stat-value">幼儿园老师</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">当下</div>
+        <div class="stat-value">大三在读</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">最爱</div>
+        <div class="stat-value">咖啡 · 微醺</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">特质</div>
+        <div class="stat-value">特立独行</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MOMENTS -->
+<section id="moments">
+  <div class="section-label">Moments</div>
+  <div class="section-title">朋友圈</div>
+  <div class="moments-grid" id="momentsGrid">
+    <div class="moment-card">
+      <div class="moment-img">🌿</div>
+      <div class="moment-body">
+        <div class="moment-text">今天的天光很好，咖啡也比平时香一点。窗外有人种了薄荷，风吹过来是整个下午的味道。</div>
+        <div class="moment-meta">2025 · 某个下午</div>
+      </div>
+    </div>
+    <div class="moment-card">
+      <div class="moment-img">📖</div>
+      <div class="moment-body">
+        <div class="moment-text">在读卡夫卡，读到一半发现我整个人就是格里高尔。变成甲虫不是悲剧，真正的悲剧是大家都还在赶着上班。</div>
+        <div class="moment-meta">2025 · 读书的夜</div>
+      </div>
+    </div>
+    <div class="moment-card">
+      <div class="moment-img">🍶</div>
+      <div class="moment-body">
+        <div class="moment-text">喝了两杯梅酒，刚好那种微醺。不是逃避什么，只是想让感受更清晰一点。</div>
+        <div class="moment-meta">2025 · 周五晚上</div>
+      </div>
+    </div>
+    <div class="moment-add" onclick="openModal('moment')">
+      <span class="plus">+</span>
+      <span>发一条朋友圈</span>
+    </div>
+  </div>
+</section>
+
+<!-- MURMUR -->
+<section id="murmur">
+  <div class="section-label">Murmur</div>
+  <div class="section-title">碎碎念</div>
+  <div class="murmur-list" id="murmurList">
+    <div class="murmur-item">
+      <div class="murmur-text">存在本身就已经是一种勇气了吧。</div>
+      <div class="murmur-time">某天凌晨</div>
+    </div>
+    <div class="murmur-item">
+      <div class="murmur-text">小朋友今天问我为什么天空是蓝色的。我想了很久，发现我不知道。然后我们一起猜了十分钟。我觉得这是今天最好的事。</div>
+      <div class="murmur-time">下班之后</div>
+    </div>
+    <div class="murmur-item">
+      <div class="murmur-text">总是在深夜想通很多事，然后早上醒来全忘了。或许这就是它们该在的地方。</div>
+      <div class="murmur-time">深夜 · 不知道几点</div>
+    </div>
+  </div>
+  <div class="murmur-input-area">
+    <textarea class="murmur-input" id="murmurInput" rows="2" placeholder="说点什么……"></textarea>
+    <button class="btn-post" onclick="postMurmur()">发出去</button>
+  </div>
+</section>
+
+<!-- MUSIC -->
+<section id="music">
+  <div class="section-label">Music</div>
+  <div class="section-title">我的歌单</div>
+  <div class="music-grid">
+    <div class="music-track" onclick="togglePlay(this)">
+      <span class="track-num">1</span>
+      <div class="track-play">▶</div>
+      <div class="track-info">
+        <div class="track-name">微醺小房间</div>
+        <div class="track-artist">9m88</div>
+      </div>
+    </div>
+    <div class="music-track" onclick="togglePlay(this)">
+      <span class="track-num">2</span>
+      <div class="track-play">▶</div>
+      <div class="track-info">
+        <div class="track-name">酒瓶砸的就是坏人的头</div>
+        <div class="track-artist">张醒婵</div>
+      </div>
+    </div>
+    <div class="music-track" onclick="togglePlay(this)">
+      <span class="track-num">3</span>
+      <div class="track-play">▶</div>
+      <div class="track-info">
+        <div class="track-name">Madwoman</div>
+        <div class="track-artist">Laufey</div>
+      </div>
+    </div>
+    <div class="music-track" onclick="togglePlay(this)">
+      <span class="track-num">4</span>
+      <div class="track-play">▶</div>
+      <div class="track-info">
+        <div class="track-name">Sunset Village</div>
+        <div class="track-artist">Beverly Glenn-Copeland</div>
+      </div>
+    </div>
+    <div class="music-track" onclick="togglePlay(this)">
+      <span class="track-num">5</span>
+      <div class="track-play">▶</div>
+      <div class="track-info">
+        <div class="track-name">Come Softly To Me</div>
+        <div class="track-artist">The Fleetwoods</div>
+      </div>
+    </div>
+    <div class="music-track" onclick="togglePlay(this)">
+      <span class="track-num">6</span>
+      <div class="track-play">▶</div>
+      <div class="track-info">
+        <div class="track-name">Plantasia</div>
+        <div class="track-artist">Mort Garson</div>
+      </div>
+    </div>
+    <div class="music-track" onclick="togglePlay(this)">
+      <span class="track-num">7</span>
+      <div class="track-play">▶</div>
+      <div class="track-info">
+        <div class="track-name">drop dead</div>
+        <div class="track-artist">Olivia Rodrigo</div>
+      </div>
+    </div>
+    <div class="music-track" onclick="togglePlay(this)">
+      <span class="track-num">8</span>
+      <div class="track-play">▶</div>
+      <div class="track-info">
+        <div class="track-name">失眠航班</div>
+        <div class="track-artist">Phum Viphurit / 9m88</div>
+      </div>
+    </div>
+    <div class="music-track" onclick="togglePlay(this)">
+      <span class="track-num">9</span>
+      <div class="track-play">▶</div>
+      <div class="track-info">
+        <div class="track-name">Raining in My Heart</div>
+        <div class="track-artist">Buddy Holly</div>
+      </div>
+    </div>
+    <div class="music-track" onclick="togglePlay(this)">
+      <span class="track-num">10</span>
+      <div class="track-play">▶</div>
+      <div class="track-info">
+        <div class="track-name">apathy</div>
+        <div class="track-artist">Gia Margaret</div>
+      </div>
+    </div>
+    <div class="music-track" onclick="togglePlay(this)">
+      <span class="track-num">11</span>
+      <div class="track-play">▶</div>
+      <div class="track-info">
+        <div class="track-name">Gimme All Your Love</div>
+        <div class="track-artist">Alabama Shakes</div>
+      </div>
+    </div>
+    <div class="music-track" onclick="togglePlay(this)">
+      <span class="track-num">12</span>
+      <div class="track-play">▶</div>
+      <div class="track-info">
+        <div class="track-name">阳光下的苔藓</div>
+        <div class="track-artist">Chainhaha</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="section-label">Gallery</div>
+  <div class="section-title">相册</div>
+  <div class="gallery-grid">
+    <div class="gallery-item">🌿</div>
+    <div class="gallery-item">☕</div>
+    <div class="gallery-item">🌅</div>
+    <div class="gallery-item">📚</div>
+    <div class="gallery-item">🍃</div>
+    <div class="gallery-item">✨</div>
+    <div class="gallery-item">🎵</div>
+    <div class="gallery-item">🌙</div>
+  </div>
+</section>
+
+<!-- SHARES -->
+<section id="shares">
+  <div class="section-label">Shares</div>
+  <div class="section-title">我的分享</div>
+  <div class="shares-list">
+    <div class="share-card">
+      <span class="share-tag">哲学</span>
+      <div class="share-title">萨特说"他人即地狱"，但我觉得孤独才是</div>
+      <div class="share-desc">存在主义从来不是悲观的，它只是把问题还给了我们自己。</div>
+    </div>
+    <div class="share-card">
+      <span class="share-tag">文学</span>
+      <div class="share-title">重读《挪威的森林》第七遍</div>
+      <div class="share-desc">每次读都有不同的感受。这次读到了一种平静，一种接受。</div>
+    </div>
+    <div class="share-card">
+      <span class="share-tag">音乐</span>
+      <div class="share-title">最近在听的几张冷门专辑</div>
+      <div class="share-desc">不知道如何描述这些音乐，但听的时候觉得很对。</div>
+    </div>
+    <div class="share-card">
+      <span class="share-tag">生活</span>
+      <div class="share-title">幼儿园老师的日常碎片</div>
+      <div class="share-desc">三岁的小朋友有三岁的哲学，我每天都在被他们教育。</div>
+    </div>
+  </div>
+</section>
+
+<!-- GAME -->
+<section id="game">
+  <div class="section-label">Game</div>
+  <div class="section-title">来玩一局</div>
+  <div class="game-area">
+    <div class="game-title-small">井字棋</div>
+    <div class="game-desc">和朋友一起玩 · 先手画 ✕，后手画 ○</div>
+    <div class="game-board" id="board"></div>
+    <div class="game-status" id="gameStatus">✕ 先走～</div>
+    <button class="btn-reset" onclick="resetGame()">重新开始</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">TOYME</div>
+  <div class="footer-quote">「做一个有趣的人，比做一个正确的人更难，也更值得。」</div>
+  <div class="footer-copy">© 陶一鸣 · 一个特立独行的人的角落</div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModalDirect()">✕</button>
+    <h3 id="modalTitle">发一条朋友圈</h3>
+    <div class="img-upload-area" id="imgUploadArea" onclick="document.getElementById('imgFileInput').click()">
+      <input type="file" id="imgFileInput" accept="image/*" style="display:none" onchange="previewImg(event)">
+      <div id="imgPreviewWrap">
+        <span class="upload-icon">🖼</span>
+        <span class="upload-hint">点击上传图片（可选）</span>
+      </div>
+    </div>
+    <textarea id="modalText" rows="4" placeholder="说说今天发生了什么……"></textarea>
+    <button class="btn-post" onclick="submitModal()">发布</button>
+  </div>
+</div>
+
+<script>
+  // ── TYPEWRITER ──
+  const phrases = [
+    '一个特立独行的 INFP。',
+    '白羊座 · 咖啡 · 微醺 · 文学。',
+    '幼儿园老师，大三在读。',
+    '喜欢小众，喜欢绿色，喜欢深夜。',
+    '男拉拉，但这只是我的一小部分。'
+  ];
+  let pi = 0, ci = 0, deleting = false;
+  const el = document.getElementById('tagline');
+
+  function type() {
+    const cur = phrases[pi];
+    if (!deleting) {
+      ci++;
+      el.innerHTML = cur.slice(0, ci) + '<span class="cursor"></span>';
+      if (ci === cur.length) { setTimeout(() => { deleting = true; type(); }, 2200); return; }
+    } else {
+      ci--;
+      el.innerHTML = cur.slice(0, ci) + '<span class="cursor"></span>';
+      if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; }
+    }
+    setTimeout(type, deleting ? 40 : 70);
+  }
+  type();
+
+  // ── MURMUR ──
+  function postMurmur() {
+    const input = document.getElementById('murmurInput');
+    const text = input.value.trim();
+    if (!text) return;
+    const now = new Date();
+    const timeStr = `${now.getMonth()+1}月${now.getDate()}日 ${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
+    const item = document.createElement('div');
+    item.className = 'murmur-item';
+    item.innerHTML = `<div class="murmur-text">${text}</div><div class="murmur-time">${timeStr}</div>`;
+    item.style.opacity = 0; item.style.transform = 'translateX(-10px)';
+    document.getElementById('murmurList').prepend(item);
+    requestAnimationFrame(() => {
+      item.style.transition = 'all 0.3s ease';
+      item.style.opacity = 1; item.style.transform = 'translateX(0)';
+    });
+    input.value = '';
+  }
+  document.getElementById('murmurInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); postMurmur(); }
+  });
+
+  // ── MUSIC ──
+  function togglePlay(el) {
+    const all = document.querySelectorAll('.music-track');
+    all.forEach(t => { t.classList.remove('playing'); t.querySelector('.track-play').textContent = '▶'; });
+    el.classList.add('playing');
+    el.querySelector('.track-play').textContent = '⏸';
+  }
+
+  // ── GAME ──
+  let board = Array(9).fill(''), currentPlayer = 'X', gameOver = false;
+  const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+  const marks = { X: '✕', O: '○' };
+
+  function renderBoard() {
+    const el = document.getElementById('board');
+    el.innerHTML = board.map((v, i) =>
+      `<div class="cell${v?' filled':''}" onclick="play(${i})">${v ? marks[v] : ''}</div>`
+    ).join('');
+  }
+
+  function checkWin(p) { return wins.some(w => w.every(i => board[i] === p)); }
+
+  function play(i) {
+    if (gameOver || board[i]) return;
+    board[i] = currentPlayer;
+    renderBoard();
+    if (checkWin(currentPlayer)) {
+      document.getElementById('gameStatus').textContent = `🎉 ${marks[currentPlayer]} 赢了！`;
+      gameOver = true; return;
+    }
+    if (board.every(v => v)) {
+      document.getElementById('gameStatus').textContent = '平局～ 旗鼓相当！';
+      gameOver = true; return;
+    }
+    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+    document.getElementById('gameStatus').textContent = `${marks[currentPlayer]} 该走了～`;
+  }
+
+  function resetGame() {
+    board = Array(9).fill(''); currentPlayer = 'X'; gameOver = false;
+    document.getElementById('gameStatus').textContent = '✕ 先走～';
+    renderBoard();
+  }
+  renderBoard();
+
+  // ── MODAL ──
+  let modalType = '', currentImgDataUrl = null;
+
+  function previewImg(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      currentImgDataUrl = ev.target.result;
+      const wrap = document.getElementById('imgPreviewWrap');
+      wrap.innerHTML = `<img src="${currentImgDataUrl}" alt="预览">`;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function openModal(type) {
+    modalType = type;
+    currentImgDataUrl = null;
+    document.getElementById('modalTitle').textContent = type === 'moment' ? '发一条朋友圈' : '写点什么';
+    document.getElementById('imgPreviewWrap').innerHTML = `<span class="upload-icon">🖼</span><span class="upload-hint">点击上传图片（可选）</span>`;
+    document.getElementById('imgFileInput').value = '';
+    document.getElementById('modalText').value = '';
+    document.getElementById('modalOverlay').classList.add('open');
+  }
+  function closeModal(e) { if (e.target.id === 'modalOverlay') closeModalDirect(); }
+  function closeModalDirect() { document.getElementById('modalOverlay').classList.remove('open'); }
+
+  function submitModal() {
+    const text = document.getElementById('modalText').value.trim();
+    if (!text && !currentImgDataUrl) return;
+    const now = new Date();
+    const timeStr = `${now.getMonth()+1}月${now.getDate()}日 ${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
+    const card = document.createElement('div');
+    card.className = 'moment-card';
+    const imgPart = currentImgDataUrl
+      ? `<div class="moment-img" style="background:none;padding:0;"><img src="${currentImgDataUrl}" style="width:100%;height:100%;object-fit:cover;" alt=""></div>`
+      : `<div class="moment-img">💬</div>`;
+    card.innerHTML = `${imgPart}<div class="moment-body"><div class="moment-text">${text}</div><div class="moment-meta">${timeStr}</div></div>`;
+    card.style.opacity = 0; card.style.transform = 'translateY(10px)';
+    const grid = document.getElementById('momentsGrid');
+    grid.insertBefore(card, grid.lastElementChild);
+    requestAnimationFrame(() => {
+      card.style.transition = 'all 0.3s ease';
+      card.style.opacity = 1; card.style.transform = 'translateY(0)';
+    });
+    closeModalDirect();
+  }
+</script>
+</body>
+</html>
